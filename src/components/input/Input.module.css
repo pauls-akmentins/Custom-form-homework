@@ -1,0 +1,12 @@
+.input {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+/* Hide native arrows for number inputs */
+.numberInput {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
