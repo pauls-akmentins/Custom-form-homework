@@ -12,11 +12,11 @@ interface Props<T> {
 export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
   const [formValues, setFormValues] = useState<T>(defaultValues);
   const [mockResponse, setMockResponse] = useState<string | null>(null);
-  const [unexpectedError, setUnexpectedError] = useState<string | null>(null);
+  const [formSubmitStatus, setFormSubmitStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>> | null>(null);
-  const { postData, status: formSubmitStatus } = usePost<T>({
+  const { postData } = usePost<T>({
     url: POST_FORM_DATA,
-    apiDebouceInMs: 1000,
+    apiDebounceInMs: 1000,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,10 +29,12 @@ export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
       ...prev,
       [e.target.name]: undefined,
     }));
+    setFormSubmitStatus(ApiStatus.DEFAULT);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFormSubmitStatus(ApiStatus.DEFAULT);
 
     if (validate) {
       const { errors } = validate(formValues);
@@ -44,11 +46,19 @@ export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
     }
 
     try {
-      const mockResponse = await postData(formValues);
-      setMockResponse(JSON.stringify(mockResponse, null, 2));
-      setFormValues(defaultValues);
+      setFormSubmitStatus(ApiStatus.LOADING);
+      await new Promise<void>((resolve, reject) => {
+        const handleResolve = (data: T) => {
+          setMockResponse(JSON.stringify(data, null, 2));
+          setFormValues(defaultValues);
+          setFormSubmitStatus(ApiStatus.SUCCESS);
+          resolve();
+        };
+
+        postData(formValues, handleResolve, reject);
+      });
     } catch (e) {
-      setUnexpectedError('Something went wrong. Please try again!');
+      setFormSubmitStatus(ApiStatus.ERROR);
     }
   };
 
@@ -62,8 +72,8 @@ export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
     handleChange,
     handleSubmit,
     handleBack,
-    isLoadingFormSubmit: formSubmitStatus === ApiStatus.LOADING,
     mockResponse,
-    unexpectedError,
+    isFormSubmitLoading: formSubmitStatus === ApiStatus.LOADING,
+    isFormSubmitError: formSubmitStatus === ApiStatus.ERROR,
   };
 };

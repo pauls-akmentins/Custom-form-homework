@@ -14,15 +14,18 @@ interface Props {
 }
 
 export const Form = ({ formVersion }: Props) => {
-  const { formLayoutWithFormContext, isLoadingFormRendering } = useFormBuilder({ formVersion });
+  const { formLayoutWithFormContext, isFormFetchError, isFormFetchLoading } = useFormBuilder({
+    formVersion,
+  });
   const {
+    formValues,
+    mockResponse,
+    isFormSubmitError,
+    isFormSubmitLoading,
+    errors,
     handleChange,
     handleBack,
     handleSubmit,
-    formValues,
-    isLoadingFormSubmit,
-    mockResponse,
-    errors,
   } = useForm<FormValues>({
     defaultValues: formVersion === FormVersion.V1 ? defaultFormValuesV1 : defaultFormValuesV2,
     validate: validateUserForm,
@@ -32,7 +35,7 @@ export const Form = ({ formVersion }: Props) => {
     <Flex centerHorizontally centerVertically>
       <form className={styles.form} onSubmit={handleSubmit}>
         <Flex directionColumn centerHorizontally centerVertically className={styles.formWrapper}>
-          {isLoadingFormRendering || isLoadingFormSubmit ? (
+          {isFormSubmitLoading || isFormFetchLoading ? (
             <Loader />
           ) : mockResponse ? (
             <FormMockResponse mockResponse={mockResponse} handleBack={handleBack} />
@@ -42,6 +45,8 @@ export const Form = ({ formVersion }: Props) => {
               formValues={formValues}
               errors={errors}
               handleChange={handleChange}
+              isFormFetchError={isFormFetchError}
+              isFormSubmitError={isFormSubmitError}
             />
           )}
         </Flex>

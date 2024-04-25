@@ -27,6 +27,7 @@
 }
 
 .formWrapper {
+  position: relative;
   gap: 3rem;
   border: 2px solid #d78dff;
   border-radius: 0.8rem;
@@ -49,6 +50,32 @@
   gap: 3rem;
   animation: fadeIn 0.4s ease-in;
   max-width: 31rem;
+  width: 100%;
+}
+
+.formFetchError {
+  padding: 1rem;
+  border: 1px solid #ff6666;
+  color: #ff6666;
+  background-color: rgba(255, 153, 153, 0.3);
+  font-size: 1.6rem;
+  margin: 0;
+  max-width: 28rem;
+  border-radius: 0.8rem;
+  width: 100%;
+}
+
+.formSubmitError {
+  top: 5rem;
+  position: absolute;
+  padding: 1rem;
+  border: 1px solid #ff6666;
+  color: #ff6666;
+  background-color: rgba(255, 153, 153, 0.3);
+  font-size: 1.6rem;
+  margin: 0;
+  max-width: 28rem;
+  border-radius: 0.8rem;
   width: 100%;
 }
 

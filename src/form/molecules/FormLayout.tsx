@@ -9,6 +9,8 @@ interface Props {
   errors: Partial<Record<keyof FormValues, string>> | null;
   formValues: FormValues;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  isFormFetchError: boolean;
+  isFormSubmitError: boolean;
 }
 
 export const FormLayout = ({
@@ -16,6 +18,8 @@ export const FormLayout = ({
   errors,
   formValues,
   handleChange,
+  isFormFetchError,
+  isFormSubmitError,
 }: Props) => {
   return (
     <Flex
@@ -24,12 +28,20 @@ export const FormLayout = ({
       centerVertically
       className={styles.formAnimationWrapper}
     >
-      <Flex centerHorizontally centerVertically directionColumn className={styles.formFields}>
-        {formLayoutWithFormContext?.map((formLayoutItem) =>
-          formLayoutUtil({ formLayoutItem, errors, formValues, handleChange }),
-        )}
-      </Flex>
-      <Button type="submit">Save</Button>
+      {isFormFetchError ? (
+        <div className={styles.formFetchError}>Something went wrong. Please try again!</div>
+      ) : isFormSubmitError ? (
+        <div className={styles.formSubmitError}>Something went wrong. Please try again!</div>
+      ) : (
+        <>
+          <Flex centerHorizontally centerVertically directionColumn className={styles.formFields}>
+            {formLayoutWithFormContext?.map((formLayoutItem) =>
+              formLayoutUtil({ formLayoutItem, errors, formValues, handleChange }),
+            )}
+          </Flex>
+          <Button type="submit">Save</Button>
+        </>
+      )}
     </Flex>
   );
 };

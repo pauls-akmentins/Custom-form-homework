@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GET_FORM_CONTEXT, GET_FORM_LAYOUT } from '../../api';
 import { useFetch } from '../../api/hooks/useAPI';
 import { FormContextResponse, FormLayoutResponse } from '../../api/types';
@@ -10,16 +10,61 @@ interface Props {
 }
 
 export const useFormBuilder = ({ formVersion = FormVersion.V1 }: Props) => {
-  const { data: formLayoutData, status: formLayoutRequestStatus } = useFetch<FormLayoutResponse[]>({
+  const [formLayoutRequestStatus, setFormLayoutRequestStatus] = useState<ApiStatus>(
+    ApiStatus.DEFAULT,
+  );
+  const [formContextRequestStatus, setFormContextRequestStatus] = useState<ApiStatus>(
+    ApiStatus.DEFAULT,
+  );
+  const [formLayoutData, setFormLayoutData] = useState<FormLayoutResponse[] | null>(null);
+  const [formContextData, setFormContextData] = useState<FormContextResponse[] | null>(null);
+  const { fetchData: fetchFormLayoutData } = useFetch<FormLayoutResponse[]>({
     url: GET_FORM_LAYOUT,
-    apiDebouceInMs: 1000,
+    apiDebounceInMs: 1000,
   });
-  const { data: formContextData, status: formContextRequestStatus } = useFetch<
-    FormContextResponse[]
-  >({
+  const { fetchData: fetchFormContextData } = useFetch<FormContextResponse[]>({
     url: GET_FORM_CONTEXT,
-    apiDebouceInMs: 1000,
+    apiDebounceInMs: 1000,
   });
+
+  const handleFetchFormLayoutData = async () => {
+    try {
+      setFormLayoutRequestStatus(ApiStatus.LOADING);
+      await new Promise<void>((resolve, reject) => {
+        const handleResolve = (data: FormLayoutResponse[]) => {
+          setFormLayoutData(data);
+          setFormLayoutRequestStatus(ApiStatus.SUCCESS);
+          resolve();
+        };
+
+        fetchFormLayoutData(handleResolve, reject);
+      });
+    } catch (e) {
+      setFormLayoutRequestStatus(ApiStatus.ERROR);
+    }
+  };
+
+  const handleFetchFormContextData = async () => {
+    try {
+      setFormContextRequestStatus(ApiStatus.LOADING);
+      await new Promise<void>((resolve, reject) => {
+        const handleResolve = (data: FormContextResponse[]) => {
+          setFormContextData(data);
+          setFormContextRequestStatus(ApiStatus.SUCCESS);
+          resolve();
+        };
+
+        fetchFormContextData(handleResolve, reject);
+      });
+    } catch (e) {
+      setFormContextRequestStatus(ApiStatus.ERROR);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchFormLayoutData();
+    handleFetchFormContextData();
+  }, []);
 
   const formLayoutWithFormContextV1:
     | (InferedDropdwonComponent | InferedInputComponent | null)[]
@@ -77,14 +122,15 @@ export const useFormBuilder = ({ formVersion = FormVersion.V1 }: Props) => {
     [formLayoutWithFormContextV2],
   );
 
-  const isLoadingFormRendering =
-    formLayoutRequestStatus === ApiStatus.LOADING || formContextRequestStatus === ApiStatus.LOADING;
-
   return {
     formLayoutWithFormContext:
       formVersion === FormVersion.V1
         ? filteredFormLayoutWithContextListV1
         : filteredFormLayoutWithContextListV2,
-    isLoadingFormRendering,
+    isFormFetchLoading:
+      formLayoutRequestStatus === ApiStatus.LOADING ||
+      formContextRequestStatus === ApiStatus.LOADING,
+    isFormFetchError:
+      formLayoutRequestStatus === ApiStatus.ERROR || formContextRequestStatus === ApiStatus.ERROR,
   };
 };

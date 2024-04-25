@@ -1,71 +1,64 @@
-import { useEffect, useState } from 'react';
-
-import { ApiMethod, ApiStatus } from './types';
+import { ApiMethod } from './types';
 
 interface Api {
   url: string;
-  apiDebouceInMs?: number;
+  apiDebounceInMs?: number;
 }
 
 const API_DOMAIN = 'https://frontend-homework-mock.prod.paynt.com';
 
-export const useFetch = <T>({ url, apiDebouceInMs }: Api) => {
-  const [data, setData] = useState<T | null>(null);
-  const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
-
-  const fetchData = async () => {
+export const useFetch = <T>({ url, apiDebounceInMs }: Api) => {
+  const fetchData = async (resolve: (data: T) => void, reject: () => void) => {
     try {
-      setStatus(ApiStatus.LOADING);
       const res = await fetch(`${API_DOMAIN}/${url}`);
-      const data = await res.json();
-      setData(data);
 
-      if (apiDebouceInMs) {
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await res.json();
+
+      if (apiDebounceInMs) {
         setTimeout(() => {
-          setStatus(ApiStatus.SUCCESS);
-        }, apiDebouceInMs);
+          resolve(data);
+        }, apiDebounceInMs);
       } else {
-        setStatus(ApiStatus.SUCCESS);
+        resolve(data);
       }
     } catch (error) {
-      setStatus(ApiStatus.ERROR);
+      reject();
     }
   };
 
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return { data, status };
+  return { fetchData };
 };
 
-export const usePost = <T>({ url, apiDebouceInMs }: Api) => {
-  const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
-
-  const postData = async (payload: T) => {
+export const usePost = <T>({ url, apiDebounceInMs }: Api) => {
+  const postData = async (payload: T, resolve: (data: T) => void, reject: () => void) => {
     try {
-      setStatus(ApiStatus.LOADING);
-      await fetch(`${API_DOMAIN}/${url}`, {
+      const res = await fetch(`${API_DOMAIN}/${url}`, {
         method: ApiMethod.POST,
         body: JSON.stringify(payload),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      if (apiDebouceInMs) {
-        setTimeout(() => {
-          setStatus(ApiStatus.SUCCESS);
-        }, apiDebouceInMs);
-      } else {
-        setStatus(ApiStatus.SUCCESS);
+
+      if (!res.ok) {
+        reject();
       }
 
-      return payload;
+      if (apiDebounceInMs) {
+        setTimeout(() => {
+          resolve(payload);
+        }, apiDebounceInMs);
+      } else {
+        resolve(payload);
+      }
     } catch (error) {
-      setStatus(ApiStatus.ERROR);
+      reject();
     }
   };
 
-  return { status, postData };
+  return { postData };
 };
