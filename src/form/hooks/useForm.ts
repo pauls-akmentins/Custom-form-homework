@@ -12,6 +12,7 @@ interface Props<T> {
 export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
   const [formValues, setFormValues] = useState<T>(defaultValues);
   const [mockResponse, setMockResponse] = useState<string | null>(null);
+  const [unexpectedError, setUnexpectedError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>> | null>(null);
   const { postData, status: formSubmitStatus } = usePost<T>({
     url: POST_FORM_DATA,
@@ -36,19 +37,18 @@ export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
     if (validate) {
       const { errors } = validate(formValues);
 
-      if (errors) {
+      if (errors && Object.keys(errors).length > 0) {
         setErrors(errors);
         return;
       }
     }
 
-    // show error is any and return
-
     try {
       const mockResponse = await postData(formValues);
       setMockResponse(JSON.stringify(mockResponse, null, 2));
+      setFormValues(defaultValues);
     } catch (e) {
-      //
+      setUnexpectedError('Something went wrong. Please try again!');
     }
   };
 
@@ -64,5 +64,6 @@ export const useForm = <T>({ defaultValues, validate }: Props<T>) => {
     handleBack,
     isLoadingFormSubmit: formSubmitStatus === ApiStatus.LOADING,
     mockResponse,
+    unexpectedError,
   };
 };

@@ -15,8 +15,6 @@ input[type='number'] {
 /** END - HIDE NATIVE NUMBER INPUT BUTTONS **/
 
 .inputWrapper {
-  display: flex;
-  flex-direction: column;
   gap: 0.4rem;
   position: relative;
 }

@@ -1,9 +1,10 @@
+import { Flex } from '../flex/Flex';
 import styles from './Dropdown.module.css';
 import { DropdownProps } from './types';
 
 export const Dropdown = ({ name, value, onChange, label, options, error }: DropdownProps) => {
   return (
-    <div className={styles.dropdownWrapper}>
+    <Flex directionColumn className={styles.dropdownWrapper}>
       {label ? (
         <label className={`${styles.label} ${(error?.length || 0) > 0 && styles.labelError} `}>
           {label}
@@ -22,6 +23,6 @@ export const Dropdown = ({ name, value, onChange, label, options, error }: Dropd
         ))}
       </select>
       {error ? <span className={styles.error}>{error}</span> : null}
-    </div>
+    </Flex>
   );
 };

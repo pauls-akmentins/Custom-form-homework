@@ -1,7 +1,4 @@
 .formContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100vh;
 }
@@ -19,10 +16,6 @@
 }
 
 .formWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 3rem;
   border: 2px solid #d78dff;
   border-radius: 0.8rem;
@@ -30,12 +23,8 @@
 }
 
 .formFields {
-  display: flex;
   max-width: 24rem;
   width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 2rem;
 }
 
@@ -58,10 +47,6 @@
 }
 
 .mockContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   gap: 2rem;
 }
 

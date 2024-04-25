@@ -1,6 +1,7 @@
 import { InputType } from './types';
 import { InputProps } from './types';
 import styles from './Input.module.css';
+import { Flex } from '../flex/Flex';
 
 export const Input = <T extends InputType>({
   type,
@@ -11,7 +12,7 @@ export const Input = <T extends InputType>({
   error,
 }: InputProps<T>) => {
   return (
-    <div className={styles.inputWrapper}>
+    <Flex directionColumn className={styles.inputWrapper}>
       {label ? (
         <label className={`${styles.label} ${(error?.length || 0) > 0 && styles.labelError} `}>
           {label}
@@ -25,6 +26,6 @@ export const Input = <T extends InputType>({
         onChange={onChange}
       />
       {error ? <span className={styles.error}>{error}</span> : null}
-    </div>
+    </Flex>
   );
 };
