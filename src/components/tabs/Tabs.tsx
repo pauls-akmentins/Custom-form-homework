@@ -1,4 +1,3 @@
-import { FormVersion } from '../../form/types';
 import { Flex } from '../flex/Flex';
 import styles from './Tabs.module.css';
 

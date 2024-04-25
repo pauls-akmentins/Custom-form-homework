@@ -4,7 +4,6 @@ import { Tabs } from '../../components/tabs/Tabs';
 import { useTabs } from '../hooks/useTabs';
 import { formConfig, tabs } from '../constants';
 import { createElement } from 'react';
-import { FormVersion } from '../types';
 
 export const FormSection = () => {
   const { activeTab, setActiveTab } = useTabs();
