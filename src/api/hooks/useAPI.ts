@@ -23,7 +23,7 @@ export const useFetch = <T>({ url, apiDebouceInMs }: Api) => {
       if (apiDebouceInMs) {
         setTimeout(() => {
           setStatus(ApiStatus.SUCCESS);
-        }, 1000);
+        }, apiDebouceInMs);
       } else {
         setStatus(ApiStatus.SUCCESS);
       }

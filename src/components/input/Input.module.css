@@ -21,7 +21,7 @@ input[type='number'] {
 
 .input {
   box-sizing: border-box;
-  width: 24rem;
+  width: 30rem;
   background-color: transparent;
   padding: 1rem;
   font-size: 1.4rem;
@@ -47,7 +47,7 @@ input[type='number'] {
 }
 
 .inputWrapper .input.inputError {
-  border: 1px solid #ff6666;
+  border: 2px solid #ff6666;
 }
 
 .inputWrapper .label.labelError {

@@ -12,7 +12,7 @@ export interface GeneralInferedComponentProps<T> {
 
 export type InferedDropdwonComponent = FormContextResponseDropdown &
   FormLayoutResponse & {
-    fieldType: FieldType.CountrySelect;
+    fieldType: FieldType.CountrySelect | FieldType.CountryInput;
   };
 
 export type InferedInputComponent = FormContextResponseInput &
@@ -37,4 +37,14 @@ export enum FormStatus {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
   LOADING = 'LOADING',
+}
+
+export enum FormVersion {
+  V1 = 'V1',
+  V2 = 'V2',
+}
+
+export interface Tab {
+  key: FormVersion;
+  label: string;
 }

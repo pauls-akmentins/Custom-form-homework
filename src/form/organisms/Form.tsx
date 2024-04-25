@@ -1,22 +1,20 @@
-import { Button } from '../../components/button/Button';
 import { Flex } from '../../components/flex/Flex';
 import { Loader } from '../../components/loader/Loader';
-import { defaultFormValues } from '../constants';
+import { defaultFormValuesV1, defaultFormValuesV2 } from '../constants';
 import { useForm } from '../hooks/useForm';
 import { useFormBuilder } from '../hooks/useFormBuilder';
 import { FormLayout } from '../molecules/FormLayout';
 import { FormMockResponse } from '../molecules/FormMockResponse';
-import { FormValues } from '../types';
-import { formLayoutUtil } from '../utils/formLayoutUtil';
+import { FormValues, FormVersion } from '../types';
 import { validateUserForm } from '../utils/validate';
 import styles from '../Form.module.css';
 
 interface Props {
-  formVersion: string;
+  formVersion: FormVersion;
 }
 
 export const Form = ({ formVersion }: Props) => {
-  const { formLayoutWithFormContext, isLoadingFormRendering } = useFormBuilder();
+  const { formLayoutWithFormContext, isLoadingFormRendering } = useFormBuilder({ formVersion });
   const {
     handleChange,
     handleBack,
@@ -26,12 +24,12 @@ export const Form = ({ formVersion }: Props) => {
     mockResponse,
     errors,
   } = useForm<FormValues>({
-    defaultValues: defaultFormValues,
+    defaultValues: formVersion === FormVersion.V1 ? defaultFormValuesV1 : defaultFormValuesV2,
     validate: validateUserForm,
   });
 
   return (
-    <Flex className={styles.formContainer} centerHorizontally centerVertically>
+    <Flex centerHorizontally centerVertically>
       <form className={styles.form} onSubmit={handleSubmit}>
         <Flex directionColumn centerHorizontally centerVertically className={styles.formWrapper}>
           {isLoadingFormRendering || isLoadingFormSubmit ? (

@@ -17,11 +17,7 @@ export const Flex = ({
 }: Props) => {
   return (
     <div
-      className={`${className} ${styles.flex} 
-          ${centerVertically && styles.centerVertically} 
-          ${centerHorizontally && styles.centerHorizontally} 
-          ${directionColumn && styles.directionColumn}
-        `}
+      className={`${className ? className : ''} ${styles.flex} ${centerVertically ? styles.centerVertically : ''} ${centerHorizontally ? styles.centerHorizontally : ''} ${directionColumn ? styles.directionColumn : ''}`}
     >
       {children}
     </div>

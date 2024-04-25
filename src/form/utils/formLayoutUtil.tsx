@@ -27,6 +27,7 @@ export const formLayoutUtil = ({
   };
 
   switch (formLayoutItem.fieldType) {
+    case FieldType.CountryInput:
     case FieldType.CountrySelect: {
       /**
        * Block scoped InferedDropdwonComponent

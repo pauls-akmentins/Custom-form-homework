@@ -3,6 +3,7 @@ import { InputType } from '../../components/input/types';
 export enum FieldType {
   NameInput = 'nameInput',
   CountrySelect = 'countrySelect',
+  CountryInput = 'countryInput',
   AgeInput = 'ageInput',
 }
 

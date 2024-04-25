@@ -16,6 +16,7 @@ export const Dropdown = ({ name, value, onChange, label, options, error }: Dropd
         value={value}
         onChange={onChange}
       >
+        <option value="">Select...</option>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

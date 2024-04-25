@@ -1,0 +1,47 @@
+.tabsWrapper {
+  width: 100%;
+}
+
+.tabsContainer {
+  border: 0.2rem solid #d78dff;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.tabList {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.tab {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: #d78dff;
+  border: none;
+  border-bottom: 0.2rem solid transparent;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.activeTab {
+  background-color: #d78dff;
+  color: white;
+  border-color: #d78dff;
+}
+
+.tabContent {
+  margin-top: 2rem;
+}
+
+.tabPanel {
+  display: none;
+}
+
+.activeTabPanel {
+  display: block;
+}
