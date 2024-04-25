@@ -4,11 +4,12 @@ import { ApiMethod, ApiStatus } from './types';
 
 interface Api {
   url: string;
+  apiDebouceInMs?: number;
 }
 
 const API_DOMAIN = 'https://frontend-homework-mock.prod.paynt.com';
 
-export const useFetch = <T>({ url }: Api) => {
+export const useFetch = <T>({ url, apiDebouceInMs }: Api) => {
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
 
@@ -18,7 +19,14 @@ export const useFetch = <T>({ url }: Api) => {
       const res = await fetch(`${API_DOMAIN}/${url}`);
       const data = await res.json();
       setData(data);
-      setStatus(ApiStatus.SUCCESS);
+
+      if (apiDebouceInMs) {
+        setTimeout(() => {
+          setStatus(ApiStatus.SUCCESS);
+        }, 1000);
+      } else {
+        setStatus(ApiStatus.SUCCESS);
+      }
     } catch (error) {
       setStatus(ApiStatus.ERROR);
     }
@@ -32,22 +40,28 @@ export const useFetch = <T>({ url }: Api) => {
   return { data, status };
 };
 
-export const usePost = <T>({ url }: Api) => {
+export const usePost = <T>({ url, apiDebouceInMs }: Api) => {
   const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
 
   const postData = async (payload: any) => {
     try {
       setStatus(ApiStatus.LOADING);
-      const res = await fetch(`${API_DOMAIN}/${url}`, {
+      await fetch(`${API_DOMAIN}/${url}`, {
         method: ApiMethod.POST,
         body: JSON.stringify(payload),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      const data: T = await res.json();
-      setStatus(ApiStatus.SUCCESS);
-      return data;
+      if (apiDebouceInMs) {
+        setTimeout(() => {
+          setStatus(ApiStatus.SUCCESS);
+        }, apiDebouceInMs);
+      } else {
+        setStatus(ApiStatus.SUCCESS);
+      }
+
+      return payload;
     } catch (error) {
       setStatus(ApiStatus.ERROR);
     }

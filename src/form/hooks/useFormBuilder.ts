@@ -2,17 +2,19 @@ import { useMemo } from 'react';
 import { GET_FORM_CONTEXT, GET_FORM_LAYOUT } from '../../api';
 import { useFetch } from '../../api/hooks/useAPI';
 import { FormContextResponse, FormLayoutResponse } from '../../api/types';
-import { FormValues, InferedDropdwonComponent, InferedInputComponent } from '../types';
-import { useForm } from './useForm';
+import { InferedDropdwonComponent, InferedInputComponent } from '../types';
+import { ApiStatus } from '../../api/hooks/types';
 
 export const useFormBuilder = () => {
   const { data: formLayoutData, status: formLayoutRequestStatus } = useFetch<FormLayoutResponse[]>({
     url: GET_FORM_LAYOUT,
+    apiDebouceInMs: 500,
   });
   const { data: formContextData, status: formContextRequestStatus } = useFetch<
     FormContextResponse[]
   >({
     url: GET_FORM_CONTEXT,
+    apiDebouceInMs: 500,
   });
 
   const formLayoutWithFormContext:
@@ -45,9 +47,11 @@ export const useFormBuilder = () => {
     [formLayoutWithFormContext],
   );
 
+  const isLoadingFormRendering =
+    formLayoutRequestStatus === ApiStatus.LOADING || formContextRequestStatus === ApiStatus.LOADING;
+
   return {
     formLayoutWithFormContext: filteredFormLayoutWithContextList,
-    formLayoutRequestStatus,
-    formContextRequestStatus,
+    isLoadingFormRendering,
   };
 };

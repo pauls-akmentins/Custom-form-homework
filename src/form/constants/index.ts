@@ -1,7 +1,7 @@
 import { FormValues } from '../types';
 
 export const defaultFormValues: FormValues = {
-  age: null,
+  age: '',
   name: '',
-  country: '',
+  country: 'LV',
 };

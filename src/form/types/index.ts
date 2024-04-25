@@ -29,5 +29,12 @@ export enum FormKey {
 export interface FormValues {
   [FormKey.Name]: string;
   [FormKey.Country]: string;
-  [FormKey.Age]: number | null;
+  [FormKey.Age]: number | string;
+}
+
+export enum FormStatus {
+  DEFAULT = 'DEFAULT',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  LOADING = 'LOADING',
 }

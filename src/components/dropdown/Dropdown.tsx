@@ -3,7 +3,7 @@ import { DropdownProps } from './types';
 
 export const Dropdown = ({ name, value, onChange, label, options }: DropdownProps) => {
   return (
-    <>
+    <div>
       {label ? <label className={styles.label}>{label}</label> : null}
       <select
         name={name}
@@ -17,6 +17,6 @@ export const Dropdown = ({ name, value, onChange, label, options }: DropdownProp
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

@@ -1,3 +1,7 @@
+/* * {
+  box-sizing: border-box;
+} */
+
 /** START - HIDE NATIVE NUMBER INPUT BUTTONS  **/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -10,12 +14,32 @@ input[type='number'] {
 }
 /** END - HIDE NATIVE NUMBER INPUT BUTTONS **/
 
-.input {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  font-size: 16px;
-  border-radius: 4px;
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
-.numberInput {
+.input {
+  box-sizing: border-box;
+  width: 24rem;
+  background-color: transparent;
+  padding: 1rem;
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  opacity: 0.6;
+  border: 2px solid #d78dff;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+    border: 2px solid #d78dff;
+  }
+}
+
+.label {
+  color: #d78dff;
+  font-weight: 800;
+  font-size: 1.4rem;
+  margin-left: 0.2rem;
 }

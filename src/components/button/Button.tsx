@@ -1,8 +1,15 @@
+import styles from './Button.module.css';
+
 interface Props {
-  buttonText: string;
-  onClick: () => void;
+  children: React.ReactNode;
+  type: 'submit' | 'button';
+  onClick?: () => void;
 }
 
-export const Button = ({ buttonText, onClick }: Props) => {
-  return <button onClick={onClick}>{buttonText}</button>;
+export const Button = ({ children, onClick, type }: Props) => {
+  return (
+    <button className={styles.button} type={type} onClick={onClick}>
+      {children}
+    </button>
+  );
 };

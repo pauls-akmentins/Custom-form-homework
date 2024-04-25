@@ -1,0 +1,81 @@
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.form {
+  max-width: 52.4rem;
+  width: 100%;
+}
+
+.formTitle {
+  color: #d78dff;
+  font-size: 3.6rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.4rem;
+  border: 2px solid #d78dff;
+  border-radius: 0.8rem;
+  padding: 12rem 14rem;
+}
+
+.formFields {
+  display: flex;
+  max-width: 24rem;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.formAnimationWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  animation: fadeIn 0.4s ease-in;
+}
+
+.mockResponseTitle {
+  color: #d78dff;
+  font-size: 2.4rem;
+  margin: 0;
+  text-align: center;
+  min-width: 36rem;
+  width: 100%;
+}
+
+.mockResponse {
+  color: #aac8a0;
+  font-size: 1.6rem;
+}
+
+.codeContainer {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

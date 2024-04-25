@@ -1,0 +1,17 @@
+.button {
+  width: 100%;
+  max-width: 36rem;
+  background-color: transparent;
+  padding: 1rem;
+  font-size: 1.4rem;
+  border-radius: 0.8rem;
+  border: 2px solid #d78dff;
+  cursor: pointer;
+  color: #d78dff;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(215, 141, 255, 0.1);
+    color: #d78dff;
+  }
+}
