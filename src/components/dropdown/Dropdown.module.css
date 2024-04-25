@@ -1,3 +1,9 @@
+.dropdownWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .input {
   width: 100%;
   padding: 0.5rem;
@@ -12,4 +18,24 @@
   appearance: none;
   background-color: transparent;
   cursor: pointer;
+}
+
+.dropdownWrapper:focus-within .label {
+  color: #d78dff;
+}
+
+.dropdownWrapper .select.inputError {
+  border: 1px solid #ff6666;
+}
+
+.dropdownWrapper .label.labelError {
+  color: #ff6666;
+}
+
+.error {
+  position: absolute;
+  color: #ff6666;
+  font-size: 1.2rem;
+  top: 6rem;
+  left: 0.6rem;
 }

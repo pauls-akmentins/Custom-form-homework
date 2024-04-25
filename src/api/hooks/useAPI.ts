@@ -43,7 +43,7 @@ export const useFetch = <T>({ url, apiDebouceInMs }: Api) => {
 export const usePost = <T>({ url, apiDebouceInMs }: Api) => {
   const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
 
-  const postData = async (payload: any) => {
+  const postData = async (payload: T) => {
     try {
       setStatus(ApiStatus.LOADING);
       await fetch(`${API_DOMAIN}/${url}`, {

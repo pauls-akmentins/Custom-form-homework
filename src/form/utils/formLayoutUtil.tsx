@@ -7,15 +7,24 @@ import { FormValues, InferedDropdwonComponent, InferedInputComponent } from '../
 interface FormLayoutUtilProps {
   formLayoutItem: InferedDropdwonComponent | InferedInputComponent;
   formValues: FormValues;
+  errors: Partial<Record<keyof FormValues, string>> | null;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
 export const formLayoutUtil = ({
   formLayoutItem,
   formValues,
+  errors,
   handleChange,
 }: FormLayoutUtilProps) => {
   const { key, type, ...rest } = formLayoutItem;
+  const sharedProps = {
+    key,
+    name: key,
+    onChange: handleChange,
+    error: errors?.[key],
+    ...rest,
+  };
 
   switch (formLayoutItem.fieldType) {
     case FieldType.CountrySelect: {
@@ -26,36 +35,24 @@ export const formLayoutUtil = ({
        */
       const { key, ...rest } = formLayoutItem;
 
-      return (
-        <Dropdown
-          key={key}
-          name={key}
-          value={formValues[key] as string}
-          onChange={handleChange}
-          {...rest}
-        />
-      );
+      return <Dropdown value={formValues[key] as string} {...sharedProps} {...rest} />;
     }
     case FieldType.NameInput: {
       return (
         <Input
-          key={key}
-          name={key}
           type={type as InputType.TEXT}
           value={formValues[key] as string}
-          onChange={handleChange}
+          {...sharedProps}
           {...rest}
         />
       );
     }
     case FieldType.AgeInput: {
       return (
-        <Input<InputType.NUMBER>
-          key={key}
-          name={key}
+        <Input
           type={type as InputType.NUMBER}
           value={formValues[key] as number}
-          onChange={handleChange}
+          {...sharedProps}
           {...rest}
         />
       );

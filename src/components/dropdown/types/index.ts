@@ -4,4 +4,5 @@ export interface DropdownProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   label: string;
   options: string[];
+  error?: string;
 }

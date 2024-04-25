@@ -23,7 +23,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.4rem;
+  gap: 3rem;
   border: 2px solid #d78dff;
   border-radius: 0.8rem;
   padding: 12rem 14rem;
@@ -36,7 +36,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+  gap: 2rem;
 }
 
 .formAnimationWrapper {
@@ -44,7 +44,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
   animation: fadeIn 0.4s ease-in;
 }
 
@@ -55,6 +55,14 @@
   text-align: center;
   min-width: 36rem;
   width: 100%;
+}
+
+.mockContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .mockResponse {

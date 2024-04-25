@@ -22,4 +22,5 @@ export type InputProps<T extends InputType> = CombinedInput<T> & {
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   label?: string;
+  error?: string;
 };
