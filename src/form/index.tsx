@@ -4,15 +4,16 @@ import { FieldType } from '../api/types';
 import { Dropdown } from '../components/dropdown/Dropdown';
 import { Input } from '../components/input/Input';
 import { InputType } from '../components/input/types';
+import { FormValues } from './types';
+import { useForm } from './hooks/useForm';
+import { defaultFormValues } from './constants';
 
 export const Form = () => {
-  const {
-    formLayoutWithFormContext,
-    formContextRequestStatus,
-    formLayoutRequestStatus,
-    formValues,
-    handleChange,
-  } = useFormBuilder();
+  const { formLayoutWithFormContext, formContextRequestStatus, formLayoutRequestStatus } =
+    useFormBuilder();
+  const { handleChange, formValues } = useForm<FormValues>({
+    defaultValues: defaultFormValues,
+  });
 
   return formContextRequestStatus === ApiStatus.LOADING ||
     formLayoutRequestStatus === ApiStatus.LOADING ? (

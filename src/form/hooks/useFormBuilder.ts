@@ -6,9 +6,6 @@ import { FormValues, InferedDropdwonComponent, InferedInputComponent } from '../
 import { useForm } from './useForm';
 
 export const useFormBuilder = () => {
-  const { handleChange, formValues } = useForm<FormValues>({
-    defaultValues: { age: null, name: '', country: '' },
-  });
   const { data: formLayoutData, status: formLayoutRequestStatus } = useFetch<FormLayoutResponse[]>({
     url: GET_FORM_LAYOUT,
   });
@@ -52,7 +49,5 @@ export const useFormBuilder = () => {
     formLayoutWithFormContext: filteredFormLayoutWithContextList,
     formLayoutRequestStatus,
     formContextRequestStatus,
-    handleChange,
-    formValues,
   };
 };

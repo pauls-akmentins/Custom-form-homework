@@ -2,17 +2,13 @@ import { useEffect, useState } from 'react';
 
 import { ApiMethod, ApiStatus } from './types';
 
-interface FetchApi {
+interface Api {
   url: string;
-}
-
-interface PostApi extends FetchApi {
-  payload: any;
 }
 
 const API_DOMAIN = 'https://frontend-homework-mock.prod.paynt.com';
 
-export const useFetch = <T>({ url }: FetchApi) => {
+export const useFetch = <T>({ url }: Api) => {
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
 
@@ -36,8 +32,7 @@ export const useFetch = <T>({ url }: FetchApi) => {
   return { data, status };
 };
 
-export const usePost = <T>({ url }: PostApi) => {
-  const [data, setResponse] = useState<T | null>(null);
+export const usePost = <T>({ url }: Api) => {
   const [status, setStatus] = useState<ApiStatus>(ApiStatus.DEFAULT);
 
   const postData = async (payload: any) => {
@@ -50,13 +45,13 @@ export const usePost = <T>({ url }: PostApi) => {
           'Content-Type': 'application/json',
         },
       });
-      const data = await res.json();
-      setResponse(data);
+      const data: T = await res.json();
       setStatus(ApiStatus.SUCCESS);
+      return data;
     } catch (error) {
       setStatus(ApiStatus.ERROR);
     }
   };
 
-  return { data, status, postData };
+  return { status, postData };
 };
