@@ -3,7 +3,7 @@ import { Form } from './Form';
 import styles from '../Form.module.css';
 import { FormVersion } from '../types';
 import Tooltip from '../../components/tooltip/Tooltip';
-import { InfoIcon } from '../../assets/icons/InfoIcon';
+import { InfoIcon } from '../../assets/InfoIcon';
 
 const DISCLAIMER_CONTENT_V1 = (
   <>
