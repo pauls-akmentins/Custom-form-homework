@@ -5,11 +5,6 @@ import {
   FormLayoutResponse,
 } from '../../api/types';
 
-export interface GeneralInferedComponentProps<T> {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  value: T;
-}
-
 export type InferedDropdwonComponent = FormContextResponseDropdown &
   FormLayoutResponse & {
     fieldType: FieldType.CountrySelect | FieldType.CountryInput;

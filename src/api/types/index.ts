@@ -2,9 +2,9 @@ import { InputType } from '../../components/input/types';
 
 export enum FieldType {
   NameInput = 'nameInput',
+  AgeInput = 'ageInput',
   CountrySelect = 'countrySelect',
   CountryInput = 'countryInput',
-  AgeInput = 'ageInput',
 }
 
 export enum InputKey {

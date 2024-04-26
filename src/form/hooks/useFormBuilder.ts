@@ -64,6 +64,8 @@ export const useFormBuilder = ({ formVersion = FormVersion.V1 }: Props) => {
   useEffect(() => {
     handleFetchFormLayoutData();
     handleFetchFormContextData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formLayoutWithFormContextV1:
