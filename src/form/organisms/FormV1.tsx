@@ -7,10 +7,10 @@ import { InfoIcon } from '../../assets/icons/InfoIcon';
 
 const DISCLAIMER_CONTENT_V1 = (
   <>
-    This form v1 version does not include workaround for country selection dropdown mapping.
+    "Form V1" version does not include workaround for country input layout and context data mapping.
     <br />
     Because of a small typo in API response, the form layout data can not be matched with form
-    context data;
+    context data.
   </>
 );
 

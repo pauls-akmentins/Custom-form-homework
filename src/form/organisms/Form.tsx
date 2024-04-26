@@ -2,21 +2,21 @@ import { Flex } from '../../components/flex/Flex';
 import { Loader } from '../../components/loader/Loader';
 import { defaultFormValuesV1, defaultFormValuesV2 } from '../constants';
 import { useForm } from '../hooks/useForm';
-import { useFormBuilder } from '../hooks/useFormBuilder';
 import { FormLayout } from '../molecules/FormLayout';
 import { FormMockResponse } from '../molecules/FormMockResponse';
 import { FormValues, FormVersion } from '../types';
 import { validateUserForm } from '../utils/validate';
 import styles from '../Form.module.css';
+import { useContext } from 'react';
+import { FormSectionContext } from '../context/FormSectionContext';
 
 interface Props {
   formVersion: FormVersion;
 }
 
 export const Form = ({ formVersion }: Props) => {
-  const { formLayoutWithFormContext, isFormFetchError, isFormFetchLoading } = useFormBuilder({
-    formVersion,
-  });
+  const { isFormFetchError, isFormFetchLoading, formLayoutWithFormContext } =
+    useContext(FormSectionContext);
   const {
     formValues,
     mockResponse,

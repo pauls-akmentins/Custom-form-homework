@@ -5,7 +5,7 @@ import { FormVersion } from '../types';
 import Tooltip from '../../components/tooltip/Tooltip';
 import { InfoIcon } from '../../assets/icons/InfoIcon';
 
-const DISCLAIMER_CONTENT_V2 = `This form v2 version includes workaround for country selection dropdown mapping.`;
+const DISCLAIMER_CONTENT_V2 = ` "Form V2" version includes workaround for country input layout and context data mapping.`;
 
 export const FormV2 = () => {
   return (

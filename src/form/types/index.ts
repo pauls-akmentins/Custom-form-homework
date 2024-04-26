@@ -48,3 +48,11 @@ export interface Tab {
   key: FormVersion;
   label: string;
 }
+
+export interface FormSectionContext {
+  formLayoutWithFormContext?: (InferedDropdwonComponent | InferedInputComponent)[];
+  isFormFetchError: boolean;
+  isFormFetchLoading: boolean;
+  activeTab: FormVersion;
+  setActiveTab: (tab: FormVersion) => void;
+}
